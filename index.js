@@ -1,19 +1,18 @@
 import express from "express";
+import cors from "cors";
+import todoRoutes from './routes/todos.routes.js';
+import bodyParser from "body-parser";
 
 // Create express app
 const app = express();
 
+// Apply middlewares
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(cors());
+
 // Define routes
-
-app.get('/', (req, res)=> {
-    // console.log(req.query, req.headers);
-    res.send("Over and out!");
-});
-
-app.get('/ping', (req, res) => {
-    // console.log(req.query, req.headers);
-    res.send("Ping pong");
-});
+app.use(todoRoutes);
 
 // Listen for incoming requests
 app.listen(4000, ()=> {
